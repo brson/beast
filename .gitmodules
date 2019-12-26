@@ -1,0 +1,3 @@
+[submodule "src/tikv"]
+	path = src/tikv
+	url = https://github.com/tikv/tikv.git
