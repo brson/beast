@@ -1,6 +1,7 @@
 [workspace]
 members = [
   "src/driver",
+  "src/driver_go",
 ]
 default-members = ["src/driver"]
 exclude = ["src/tikv"]

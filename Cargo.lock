@@ -88,6 +88,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b671c8fb71b457dd4ae18c4ba1e59aa81793daacc361d82fcd410cef0d491875"
 
 [[package]]
+name = "b_error"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5138fa87965a4d7abfcd4dc519a05a1bc70f12b737ac137a400ff5b3fa37197b"
+
+[[package]]
 name = "backtrace"
 version = "0.3.37"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -122,6 +128,7 @@ dependencies = [
 name = "beastdb"
 version = "0.1.0"
 dependencies = [
+ "driver_go",
  "tikv",
 ]
 
@@ -625,6 +632,13 @@ name = "doc-comment"
 version = "0.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "923dea538cea0aa3025e8685b20d6ee21ef99c4f77e954a30febbaac5ec73a97"
+
+[[package]]
+name = "driver_go"
+version = "0.1.0"
+dependencies = [
+ "b_error",
+]
 
 [[package]]
 name = "dtoa"

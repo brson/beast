@@ -147,6 +147,7 @@ install-go
 allbeast: \
 pd-server \
 tidb \
+golib \
 driver
 .PHONY: beast
 
@@ -158,6 +159,10 @@ tidb: \
 out/tidb.a
 .PHONY: tidb
 
+golib: \
+out/golib.a
+.PHONY: golib
+
 driver: \
 out/beastdb
 .PHONY: driver
@@ -165,7 +170,7 @@ out/beastdb
 out/pd-server.a:
 > export GO111MODULE=on
 > export CGO_ENABLED=0
-> pushd src/pd
+> cd src/pd
 > go build -gcflags '$(GCFLAGS)' -ldflags '$(LDFLAGS)' \
   -buildmode=c-archive -o ../../out/pd-server.a \
   cmd/pd-server/main.go
@@ -173,10 +178,22 @@ out/pd-server.a:
 out/tidb.a:
 > false
 
+out/golib.a: \
+src/golib/*
+> export GO111MODULE=on
+> export CGO_ENABLED=1
+> cd src/golib
+> go build -gcflags '$(GCFLAGS)' -ldflags '$(LDFLAGS)' \
+  -buildmode=c-archive -o ../../out/golib.a \
+  golib.go
+
 out/beastdb: \
+src/driver/* \
+src/driver_go/* \
 out/pd-server.a \
-out/tidb.a
-> false
+out/golib.a
+#out/tidb.a
+> cargo build -p beastdb
 
 
 # TODO

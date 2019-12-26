@@ -4,5 +4,10 @@ version = "0.1.0"
 authors = ["Brian Anderson <andersrb@gmail.com>"]
 edition = "2018"
 
+[[bin]]
+name = "beastdb"
+path = "beastdb.rs"
+
 [dependencies]
+driver_go = { path = "../driver_go" }
 tikv = { path = "../tikv" }
