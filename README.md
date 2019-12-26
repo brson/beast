@@ -16,6 +16,7 @@ A database that scales from a single node, to [huge workloads][l] across [hundre
 - [Use cases][l]
 - [Configuration][l]
 - [Future work][l]
+- [Building from source][l]
 - [Contributing][l]
 - [License][l]
 
@@ -73,6 +74,11 @@ At this point you can use the standard [MySQL client][l] to interact with the da
 TODO
 
 
+## Configuration
+
+TODO
+
+
 ## Future work
 
 - Release builds
@@ -84,6 +90,11 @@ TODO
 - Multiple frontends
 - Autogeneration of frontend symlinks
 - In-process embedding ala SQLite
+
+
+## Building from source
+
+TODO
 
 
 ## Contributing
