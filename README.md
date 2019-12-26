@@ -86,10 +86,13 @@ TODO
 - Include TiSpark
 - Include TiFlash
 - Include mysql client
+- Include tikv-ctl
+- Include tipb-ctl
 - MySQL server frontend emulation
 - Multiple frontends
 - Autogeneration of frontend symlinks
 - In-process embedding ala SQLite
+- Make included components configurable
 
 
 ## Building from source

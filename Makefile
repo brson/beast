@@ -24,7 +24,8 @@ endif
 
 # Configuration options for this makefile
 OFFLINE=
-
+GCFLAGS:=$(GCFLAGS)
+LDFLAGS:=$(LDFLAGS)
 
 # Toolchain definitions
 # NB: Keep in sync with rust-toolchain and .gvm-version
@@ -41,6 +42,7 @@ GVM_PKGSET=global
 export gvm_go_name=${GO_TOOLCHAIN}
 export gvm_pkgset_name=${GVM_PKGSET}
 export RUSTUP_TOOLCHAIN=${RUST_TOOLCHAIN}
+export GO111MODULE=on
 
 
 # Master rules
@@ -143,13 +145,13 @@ install-go
 # Build rules
 
 allbeast: \
-pd \
+pd-server \
 tidb \
 driver
 .PHONY: beast
 
-pd: \
-out/pd.a
+pd-server: \
+out/pd-server.a
 .PHONY: pd
 
 tidb: \
@@ -160,14 +162,19 @@ driver: \
 out/beastdb
 .PHONY: driver
 
-out/pd.a:
-> false
+out/pd-server.a:
+> export GO111MODULE=on
+> export CGO_ENABLED=0
+> pushd src/pd
+> go build -gcflags '$(GCFLAGS)' -ldflags '$(LDFLAGS)' \
+  -buildmode=c-archive -o ../../out/pd-server.a \
+  cmd/pd-server/main.go
 
 out/tidb.a:
 > false
 
 out/beastdb: \
-out/pd.a \
+out/pd-server.a \
 out/tidb.a
 > false
 
