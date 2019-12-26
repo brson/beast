@@ -31,7 +31,7 @@ Beast is a single binary (or library) that contains
 
 It essentially runs an entire distributed database cluster in a single process.
 
-[TiDB][l] is a badass distributed database, but it is difficult to set up and
+TiDB is a badass distributed database, but it is difficult to set up and
 run &mdash; its production configuration typically consists of many nodes. As
 such, it has a limited audience of developers with big data needs, and who are
 motivated to work through the setup process of a distributed database.
