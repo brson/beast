@@ -4,13 +4,15 @@ A zero-installation, single-binary, do-everything database.
 
 A simple way to test [TiDB][l].
 
-A drop-in replacement for MySQL.
+A drop-in replacement for [MySQL][l].
 
-A database that scales from a single node to [huge workloads][l] across [hundreds of nodes][l].
+A database that scales from a single node, to [huge workloads][l] across [hundreds of nodes][l].
 
+**Note: This project is not implemented yet. It does nothing.**
+
+
+- [What is it and why?][l]
 - [Installation][l]
-- [What is it?!][l]
-- [Why?][l]
 - [Use cases][l]
 - [Configuration][l]
 - [Future work][l]
@@ -18,28 +20,24 @@ A database that scales from a single node to [huge workloads][l] across [hundred
 - [License][l]
 
 
-## What is it?!
+## What is it and why?!
 
-Beast is a single binary that contains
+Beast is a single binary (or library) that contains
 
 - [TiDB][l], a MySQL-compatible query engine,
 - [TiKV][l], the key/value storage engine that underlies TiDB,
 - [Placement Driver][l], the coordinator between TiKV and its query engines.
 
-It effectively runs an entire distributed database cluster in a single process.
+It essentially runs an entire distributed database cluster in a single process.
 
+[TiDB][l] is a badass distributed database, but it is difficult to set up and
+run &mdash; its production configuration typically consists of many nodes. As
+such, it has a limited audience of developers with big data needs, and who are
+motivated to work through the setup process of a distributed database.
 
-## Why?
-
-[TiDB][l] is a badass distributed database, but it is hard to set up and run
-&mdash; its production configuration typically consists of many nodes. As such,
-it has a limited audience of developers with more data than can fit on a single
-machine, and who are motivated to work through the setup process of a
-distributed database.
-
-Beast puts all the components of TiDB into a single executable, making it trivial
-to apply TiDB to single-node MySQL workloads, whether for development or
-production.
+Beast puts all the components of TiDB into a single executable, making it
+trivial to apply TiDB to single-node MySQL workloads, whether for evaluation,
+development or production.
 
 
 ## Installation
@@ -47,7 +45,7 @@ production.
 Download the latest binary. The easiest way is to run this command:
 
 ```
-curl -O https://todo
+curl -O https://TODO
 ```
 
 Run the binary:
@@ -68,6 +66,39 @@ Run the binary:
 ```
 
 At this point you can use the standard [MySQL client][l] to interact with the database.
+
+
+## Use cases
+
+TODO
+
+
+## Future work
+
+- Release builds
+- Include Grafana
+- Include TiSpark
+- Include TiFlash
+- Include mysql client
+- MySQL server frontend emulation
+- Multiple frontends
+- Autogeneration of frontend symlinks
+- In-process embedding ala SQLite
+
+
+## Contributing
+
+TODO
+
+
+## License
+
+Apache-2.0 / MIT / BSL-1.0 / CC0-1.0
+
+The code in this repository is distributed under any or all of the above
+licenses, at your option. Any contributions to this repository are contributed
+under all of the above licenses. Depencies on are distributed under their own
+terms.
 
 
 [l]: todo
