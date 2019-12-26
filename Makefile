@@ -142,13 +142,34 @@ install-go
 
 # Build rules
 
+allbeast: \
+pd \
+tidb \
+driver
+.PHONY: beast
+
 pd: \
 out/pd.a
 .PHONY: pd
 
+tidb: \
+out/tidb.a
+.PHONY: tidb
+
+driver: \
+out/beastdb
+.PHONY: driver
+
 out/pd.a:
 > false
 
+out/tidb.a:
+> false
+
+out/beastdb: \
+out/pd.a \
+out/tidb.a
+> false
 
 
 # TODO

@@ -4,3 +4,6 @@
 [submodule "src/pd"]
 	path = src/pd
 	url = https://github.com/pingcap/pd.git
+[submodule "src/tidb"]
+	path = src/tidb
+	url = https://github.com/pingcap/tidb.git
