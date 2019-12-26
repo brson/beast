@@ -1,3 +1,6 @@
 [submodule "src/tikv"]
 	path = src/tikv
 	url = https://github.com/tikv/tikv.git
+[submodule "src/pd"]
+	path = src/pd
+	url = https://github.com/pingcap/pd.git

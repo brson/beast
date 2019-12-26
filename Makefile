@@ -140,6 +140,17 @@ install-go
 .PHONY: print-go-version
 
 
+# Build rules
+
+pd: \
+out/pd.a
+.PHONY: pd
+
+out/pd.a:
+> false
+
+
+
 # TODO
 
 # - check compiler versions
