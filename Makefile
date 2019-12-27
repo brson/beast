@@ -6,6 +6,8 @@
 #     https://tech.davis-hansson.com/p/make/
 
 
+
+
 # Configure make to behave more reliably and predictably.
 # This is Davis Hansson's preamble.
 
@@ -22,10 +24,15 @@ endif
 .RECIPEPREFIX = >
 
 
+
+
 # Configuration options for this makefile
-OFFLINE=
+OFFLINE:=$(OFFLINE)
 GCFLAGS:=$(GCFLAGS)
 LDFLAGS:=$(LDFLAGS)
+
+
+
 
 # Toolchain definitions
 # NB: Keep in sync with rust-toolchain and .gvm-version
@@ -45,12 +52,33 @@ export RUSTUP_TOOLCHAIN=${RUST_TOOLCHAIN}
 export GO111MODULE=on
 
 
+
+
+# Source files
+
+DRIVER_FILES=$(shell find src/driver)
+DRIVER_GO_FILES=$(shell find src/driver_go)
+TIKV_FILES=$(shell find src/tikv)
+PD_FILES=$(shell find src/tikv)
+TIDB_FILES=$(shell find src/tidb)
+GOLIB_FILES=$(shell find src/golib)
+
+
+
+
 # Master rules
 
 all: \
 configure-toolchains
 > false
 .PHONY: all
+
+run:
+> @echo running out/beastdb
+> @out/beastdb
+.PHONY: run
+
+
 
 
 # Toolchain installation
@@ -70,12 +98,12 @@ verify-go
 
 verify-rust: \
 install-rust
-> rustc -V | grep "${RUST_VERSION}" > /dev/null
+> @rustc -V | grep "${RUST_VERSION}" > /dev/null
 .PHONY: verify-rust
 
 verify-go: \
 install-go
-> go version | grep "${GO_VERSION}" > /dev/null
+> @go version | grep "${GO_VERSION}" > /dev/null
 .PHONY: verify-go
 
 verify-toolchain-managers: \
@@ -133,16 +161,18 @@ print-go-version
 
 print-rust-version: \
 install-rust
-> @echo "$(rustc -V)"
+> @echo "$(shell rustc -V)"
 .PHONY: print-rust-version
 
 print-go-version: \
 install-go
-> @echo "$(go version)"
+> @echo "$(shell go version)"
 .PHONY: print-go-version
 
 
-# Build rules
+
+
+# Convenient-named build rules
 
 allbeast: \
 pd-server \
@@ -160,12 +190,17 @@ out/tidb.a
 .PHONY: tidb
 
 golib: \
-out/golib.a
+out/libgolib.a
 .PHONY: golib
 
 driver: \
 out/beastdb
 .PHONY: driver
+
+
+
+
+# Actual build rules
 
 out/pd-server.a:
 > export GO111MODULE=on
@@ -178,22 +213,29 @@ out/pd-server.a:
 out/tidb.a:
 > false
 
-out/golib.a: \
-src/golib/*
+out/libgolib.a: \
+$(GOLIB_FILES) \
+$(PD_FILES) \
+$(TIDB_FILES)
 > export GO111MODULE=on
 > export CGO_ENABLED=1
 > cd src/golib
 > go build -gcflags '$(GCFLAGS)' -ldflags '$(LDFLAGS)' \
-  -buildmode=c-archive -o ../../out/golib.a \
+  -buildmode=c-archive -o ../../out/libgolib.a \
   golib.go
 
 out/beastdb: \
-src/driver/* \
-src/driver_go/* \
+$(DRIVER_FILES) \
+$(DRIVER_GO_FILES) \
+$(TIKV_FILES) \
 out/pd-server.a \
-out/golib.a
+out/libgolib.a
 #out/tidb.a
+> export RUSTFLAGS="-L native=`pwd`/out"
 > cargo build -p beastdb
+> cp target/debug/beastdb out/
+
+
 
 
 # TODO

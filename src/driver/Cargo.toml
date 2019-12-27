@@ -10,4 +10,3 @@ path = "beastdb.rs"
 
 [dependencies]
 driver_go = { path = "../driver_go" }
-tikv = { path = "../tikv" }

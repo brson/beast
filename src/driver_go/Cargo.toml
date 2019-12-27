@@ -4,6 +4,9 @@ version = "0.1.0"
 authors = ["Brian Anderson <andersrb@gmail.com>"]
 edition = "2018"
 
+links="golib"
+build="build.rs"
+
 [lib]
 path = "driver_go.rs"
 
