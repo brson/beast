@@ -10,3 +10,4 @@ path = "beastdb.rs"
 
 [dependencies]
 driver_go = { path = "../driver_go" }
+b_error = "0.1.0"

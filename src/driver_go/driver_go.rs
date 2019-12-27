@@ -6,7 +6,8 @@ pub fn pd_server_start() -> BResult<()> {
     panic!()
 }
 
-pub fn pd_server_run() -> i32 {
+pub fn pd_server_run(args: &[String]) -> i32 {
+    // FIXME use arguments
     unsafe { ffi::beast_pd_server_run() }
 }
 
