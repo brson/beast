@@ -2,6 +2,8 @@ use b_error::{BResult, StdResultExt};
 use std::env;
 use std::error::Error as StdError;
 
+// FIXME would be better to use TryFrom instead of the str_to_persona closure
+// but I can't get the bounds to work.
 pub fn from_env<P, F, E>(env_prefix: &str, str_to_persona: F) -> BResult<(P, Vec<String>)>
 where F: Fn(&str) -> Result<P, E>,
       P: Default,
