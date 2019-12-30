@@ -7,6 +7,7 @@ replace github.com/pingcap/pd => ./src/pd
 replace github.com/pingcap/tidb => ./src/tidb
 
 require github.com/pingcap/pd v1.1.0-beta.0.20191119031555-7a5909ed3bae
+
 require github.com/pingcap/tidb v1.1.0-beta.0.20191203054555-84e4386c7a77
 
 require (
