@@ -3,6 +3,7 @@ package main
 import "C"
 import "unsafe"
 import "github.com/brson/beast/src/golib/pd"
+import "github.com/brson/beast/src/golib/tidb"
 
 func main() { }
 
@@ -21,6 +22,13 @@ func beast_pd_server_run(argc int32, argv **C.char) int32 {
 //export beast_pd_ctl_run
 func beast_pd_ctl_run() int32 {
     return 0
+}
+
+//export beast_tidb_server_run
+func beast_tidb_server_run(argc int32, argv **C.char) int32 {
+	args := import_args(argc, argv)
+	tidb.ServerRun(args)
+	panic("unreachable")
 }
 
 func import_args(argc int32, argv **C.char) []string {

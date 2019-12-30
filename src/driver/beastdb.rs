@@ -38,7 +38,7 @@ fn exec_persona(persona: Persona, args: Vec<String>) -> BResult<i32> {
     // These functions may not return, and handle exiting the process themselves
     match persona {
         Persona::BeastDb => panic!(),
-        Persona::TiDbServer => panic!(),
+        Persona::TiDbServer => driver_go::tidb_server_run(&args),
         Persona::PdServer => driver_go::pd_server_run(&args),
         Persona::TiKvServer => panic!(),
     }
