@@ -8,13 +8,7 @@ fn main() {
 fn run() -> BResult<()> {
     let (persona, args) = persona::from_env("BEASTDB", str_to_persona)?;
 
-    // These functions may not return, and handle exiting the process themselves
-    let code = match persona {
-        Persona::BeastDb => panic!(),
-        Persona::TiDbServer => panic!(),
-        Persona::PdServer => driver_go::pd_server_run(&args)?,
-        Persona::TiKvServer => panic!(),
-    };
+    let code = exec_persona(persona, args)?;
 
     process::exit(code);
 }
@@ -37,5 +31,15 @@ fn str_to_persona(s: &str) -> BResult<Persona> {
         "pd-server" => Ok(Persona::PdServer),
         "tikv-server" => Ok(Persona::TiKvServer),
         _ => Err(BError::new(format!("unknown persona, {}", s))),
+    }
+}
+
+fn exec_persona(persona: Persona, args: Vec<String>) -> BResult<i32> {
+    // These functions may not return, and handle exiting the process themselves
+    match persona {
+        Persona::BeastDb => panic!(),
+        Persona::TiDbServer => panic!(),
+        Persona::PdServer => driver_go::pd_server_run(&args),
+        Persona::TiKvServer => panic!(),
     }
 }
