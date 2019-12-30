@@ -118,6 +118,48 @@ var (
 	proxyProtocolHeaderTimeout = flag.Uint(nmProxyProtocolHeaderTimeout, 5, "proxy protocol header read timeout, unit is second.")
 )
 
+func parseFlags(args []string) {
+	flags := flag.NewFlagSet(args[0], flag.ExitOnError)
+
+	version      = flagBoolean2(flags, nmVersion, false, "print version information and exit")
+	configPath   = flags.String(nmConfig, "", "config file path")
+	configCheck  = flagBoolean2(flags, nmConfigCheck, false, "check config file validity and exit")
+	configStrict = flagBoolean2(flags, nmConfigStrict, false, "enforce config file validity")
+
+	// Base
+	store            = flags.String(nmStore, "mocktikv", "registered store name, [tikv, mocktikv]")
+	storePath        = flags.String(nmStorePath, "/tmp/tidb", "tidb storage path")
+	host             = flags.String(nmHost, "0.0.0.0", "tidb server host")
+	advertiseAddress = flags.String(nmAdvertiseAddress, "", "tidb server advertise IP")
+	port             = flags.String(nmPort, "4000", "tidb server port")
+	cors             = flags.String(nmCors, "", "tidb server allow cors origin")
+	socket           = flags.String(nmSocket, "", "The socket file to use for connection.")
+	enableBinlog     = flagBoolean2(flags, nmEnableBinlog, false, "enable generate binlog")
+	runDDL           = flagBoolean2(flags, nmRunDDL, true, "run ddl worker on this tidb-server")
+	ddlLease         = flags.String(nmDdlLease, "45s", "schema lease duration, very dangerous to change only if you know what you do")
+	tokenLimit       = flags.Int(nmTokenLimit, 1000, "the limit of concurrent executed sessions")
+	pluginDir        = flags.String(nmPluginDir, "/data/deploy/plugin", "the folder that hold plugin")
+	pluginLoad       = flags.String(nmPluginLoad, "", "wait load plugin name(separated by comma)")
+
+	// Log
+	logLevel     = flags.String(nmLogLevel, "info", "log level: info, debug, warn, error, fatal")
+	logFile      = flags.String(nmLogFile, "", "log file path")
+	logSlowQuery = flags.String(nmLogSlowQuery, "", "slow query file path")
+
+	// Status
+	reportStatus    = flagBoolean2(flags, nmReportStatus, true, "If enable status report HTTP service.")
+	statusHost      = flags.String(nmStatusHost, "0.0.0.0", "tidb server status host")
+	statusPort      = flags.String(nmStatusPort, "10080", "tidb server status port")
+	metricsAddr     = flags.String(nmMetricsAddr, "", "prometheus pushgateway address, leaves it empty will disable prometheus push.")
+	metricsInterval = flags.Uint(nmMetricsInterval, 15, "prometheus client push interval in second, set \"0\" to disable prometheus push.")
+
+	// PROXY Protocol
+	proxyProtocolNetworks      = flags.String(nmProxyProtocolNetworks, "", "proxy protocol networks allowed IP or *, empty mean disable proxy protocol support")
+	proxyProtocolHeaderTimeout = flags.Uint(nmProxyProtocolHeaderTimeout, 5, "proxy protocol header read timeout, unit is second.")
+
+	flags.Parse(args)
+}
+
 var (
 	cfg      *config.Config
 	storage  kv.Storage
@@ -127,11 +169,7 @@ var (
 )
 
 func ServerRun(args []string) {
-	panic("unimplemented")
-}
-
-func main() {
-	flag.Parse()
+	parseFlags(args)
 	if *version {
 		fmt.Println(printer.GetTiDBInfo())
 		os.Exit(0)
@@ -293,6 +331,15 @@ func flagBoolean(name string, defaultVal bool, usage string) *bool {
 		return flag.Bool(name, defaultVal, usage)
 	}
 	return flag.Bool(name, defaultVal, usage)
+}
+
+func flagBoolean2(flags *flag.FlagSet, name string, defaultVal bool, usage string) *bool {
+	if !defaultVal {
+		// Fix #4125, golang do not print default false value in usage, so we append it.
+		usage = fmt.Sprintf("%s (default false)", usage)
+		return flags.Bool(name, defaultVal, usage)
+	}
+	return flags.Bool(name, defaultVal, usage)
 }
 
 var deprecatedConfig = map[string]struct{}{
