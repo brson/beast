@@ -1,4 +1,4 @@
-module github.com/brson/beast/src/golib
+module github.com/brson/beast
 
 go 1.13
 
