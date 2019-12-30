@@ -1,6 +1,5 @@
 package pd
 
-// pd-server imports
 import (
 	"context"
 	"flag"
@@ -9,24 +8,22 @@ import (
 	"syscall"
 
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
-	"github.com/pingcap/log"
-	"github.com/pingcap/pd/pkg/keyvisual"
+	log "github.com/pingcap/log"
 	"github.com/pingcap/pd/pkg/logutil"
 	"github.com/pingcap/pd/pkg/metricutil"
 	"github.com/pingcap/pd/server"
 	"github.com/pingcap/pd/server/api"
-	"github.com/pingcap/pd/server/config"
-	"github.com/pingcap/pd/server/join"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 
 	// Register schedulers.
 	_ "github.com/pingcap/pd/server/schedulers"
+	// Register namespace classifiers.
+	_ "github.com/pingcap/pd/table"
 )
 
-// copied from pd-server
 func ServerRun(args []string) {
-	cfg := config.NewConfig()
+	cfg := server.NewConfig()
 	err := cfg.Parse(args[1:])
 
 	if cfg.Version {
@@ -76,18 +73,11 @@ func ServerRun(args []string) {
 
 	metricutil.Push(&cfg.Metric)
 
-	err = join.PrepareJoinCluster(cfg)
+	err = server.PrepareJoinCluster(cfg)
 	if err != nil {
 		log.Fatal("join meet error", zap.Error(err))
 	}
-
-	// Creates server.
-	ctx, cancel := context.WithCancel(context.Background())
-	svr, err := server.CreateServer(
-		ctx,
-		cfg,
-		api.NewHandler,
-		keyvisual.NewKeyvisualService)
+	svr, err := server.CreateServer(cfg, api.NewHandler)
 	if err != nil {
 		log.Fatal("create server failed", zap.Error(err))
 	}
@@ -103,13 +93,14 @@ func ServerRun(args []string) {
 		syscall.SIGTERM,
 		syscall.SIGQUIT)
 
+	ctx, cancel := context.WithCancel(context.Background())
 	var sig os.Signal
 	go func() {
 		sig = <-sc
 		cancel()
 	}()
 
-	if err := svr.Run(); err != nil {
+	if err := svr.Run(ctx); err != nil {
 		log.Fatal("run server failed", zap.Error(err))
 	}
 
