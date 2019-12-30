@@ -2,6 +2,7 @@
 members = [
   "src/driver",
   "src/driver_go",
+  "src/persona",
 ]
 default-members = ["src/driver"]
 exclude = ["src/tikv"]

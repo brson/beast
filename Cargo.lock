@@ -12,10 +12,18 @@ version = "0.1.0"
 dependencies = [
  "b_error",
  "driver_go",
+ "persona",
 ]
 
 [[package]]
 name = "driver_go"
+version = "0.1.0"
+dependencies = [
+ "b_error",
+]
+
+[[package]]
+name = "persona"
 version = "0.1.0"
 dependencies = [
  "b_error",
