@@ -2,7 +2,7 @@ module github.com/brson/beast/src/golib
 
 go 1.13
 
-replace github.com/pingcap/pd => ../pd
+replace github.com/pingcap/pd => ./src/pd
 
 require (
 	github.com/BurntSushi/toml v0.3.1

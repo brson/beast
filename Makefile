@@ -219,10 +219,9 @@ $(PD_FILES) \
 $(TIDB_FILES)
 > export GO111MODULE=on
 > export CGO_ENABLED=1
-> cd src/golib
 > go build -gcflags '$(GCFLAGS)' -ldflags '$(LDFLAGS)' \
-  -buildmode=c-archive -o ../../out/libgolib.a \
-  golib.go
+  -buildmode=c-archive -o out/libgolib.a \
+  src/golib/golib.go
 
 out/beastdb: \
 $(DRIVER_FILES) \
