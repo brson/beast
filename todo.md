@@ -1,0 +1,2 @@
+- handle ffi boundary panics
+- fix go naming conventions

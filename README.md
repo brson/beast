@@ -88,6 +88,7 @@ TODO
 - Include mysql client
 - Include tikv-ctl
 - Include tipb-ctl
+- Include prometheus
 - MySQL server frontend emulation
 - Multiple frontends
 - Autogeneration of frontend symlinks

@@ -13,7 +13,7 @@ fn run() -> BResult<()> {
     let code = match persona {
         Persona::BeastDb => panic!(),
         Persona::TiDbServer => panic!(),
-        Persona::PdServer => driver_go::pd_server_run(&args),
+        Persona::PdServer => driver_go::pd_server_run(&args)?,
         Persona::TiKvServer => panic!(),
     };
 
