@@ -175,19 +175,9 @@ install-go
 # Convenient-named build rules
 
 allbeast: \
-pd-server \
-tidb \
 golib \
 driver
 .PHONY: beast
-
-pd-server: \
-out/pd-server.a
-.PHONY: pd
-
-tidb: \
-out/tidb.a
-.PHONY: tidb
 
 golib: \
 out/libgolib.a
@@ -201,17 +191,6 @@ out/beastdb
 
 
 # Actual build rules
-
-out/pd-server.a:
-> export GO111MODULE=on
-> export CGO_ENABLED=0
-> cd src/pd
-> go build -gcflags '$(GCFLAGS)' -ldflags '$(LDFLAGS)' \
-  -buildmode=c-archive -o ../../out/pd-server.a \
-  cmd/pd-server/main.go
-
-out/tidb.a:
-> false
 
 out/libgolib.a: \
 $(GOLIB_FILES) \
@@ -227,7 +206,6 @@ out/beastdb: \
 $(DRIVER_FILES) \
 $(DRIVER_GO_FILES) \
 $(TIKV_FILES) \
-out/pd-server.a \
 out/libgolib.a
 #out/tidb.a
 > export RUSTFLAGS="-L native=`pwd`/out"
