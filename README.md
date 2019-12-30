@@ -11,7 +11,8 @@ A database that scales from a single node, to [huge workloads][l] across [hundre
 **Note: This project is not implemented yet. It does nothing.**
 
 
-- [What is it and why?][l]
+- [What is it?][l]
+- [Why?][l]
 - [Installation][l]
 - [Use cases][l]
 - [Configuration][l]
@@ -21,9 +22,9 @@ A database that scales from a single node, to [huge workloads][l] across [hundre
 - [License][l]
 
 
-## What is it and why?!
+## What is it?
 
-Beast is a single binary (or library) that contains
+BeastDB is a single binary that contains
 
 - [TiDB][l], a MySQL-compatible query engine,
 - [TiKV][l], the key/value storage engine that underlies TiDB,
@@ -31,12 +32,15 @@ Beast is a single binary (or library) that contains
 
 It essentially runs an entire distributed database cluster in a single process.
 
+
+## Why?
+
 TiDB is a badass distributed database, but it is difficult to set up and
 run &mdash; its production configuration typically consists of many nodes. As
 such, it has a limited audience of developers with big data needs, and who are
 motivated to work through the setup process of a distributed database.
 
-Beast puts all the components of TiDB into a single executable, making it
+BeastDB puts all the components of TiDB into a single executable, making it
 trivial to apply TiDB to single-node MySQL workloads, whether for evaluation,
 development or production.
 
@@ -57,7 +61,7 @@ Run the binary:
 [beast] The Beijing Beast, version 0.1.0
 [beast] components: TiDB, TiKV, PD
 [beast] initializing database in ./beast-db
-[beast] ** The Beijing Beast is listening **
+[beast] The beast is listening
 [beast] ... for TiKV connections on port TODO
 [beast] ... for PD connections on port TODO
 [beast] ... for MySQL connections on port TODO
@@ -90,7 +94,6 @@ TODO
 - Include tipb-ctl
 - Include prometheus
 - MySQL server frontend emulation
-- Multiple frontends
 - Autogeneration of frontend symlinks
 - In-process embedding ala SQLite
 - Make included components configurable
