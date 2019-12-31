@@ -59,6 +59,7 @@ export GO111MODULE=on
 BEASTDB_FILES=$(shell find src/beastdb)
 DRIVER_GO_FILES=$(shell find src/driver_go)
 DRIVER_TIKV_FILES=$(shell find src/driver_tikv)
+DRIVER_BEASTDB_FILES=$(shell find src/driver_beastdb)
 TIKV_FILES=$(shell find src/tikv)
 PD_FILES=$(shell find src/tikv)
 TIDB_FILES=$(shell find src/tidb)
@@ -205,6 +206,7 @@ $(TIDB_FILES)
 
 out/beastdb: \
 $(DRIVER_FILES) \
+$(DRIVER_BEASTDB_FILES) \
 $(DRIVER_GO_FILES) \
 $(DRIVER_TIKV_FILES) \
 $(TIKV_FILES) \

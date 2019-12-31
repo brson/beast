@@ -10,6 +10,7 @@ path = "beastdb.rs"
 
 [dependencies]
 b_error = "0.1.0"
+driver_beastdb = { path = "../driver_beastdb" }
 driver_go = { path = "../driver_go" }
 driver_tikv = { path = "../driver_tikv" }
 persona = { path = "../persona" }

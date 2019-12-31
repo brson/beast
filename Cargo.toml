@@ -1,11 +1,12 @@
 [workspace]
 members = [
-  "src/driver",
+  "src/beastdb",
+  "src/driver_beastdb",
   "src/driver_go",
   "src/driver_tikv",
   "src/persona",
 ]
-default-members = ["src/driver"]
+default-members = ["src/beastdb"]
 exclude = ["src/tikv"]
 
 # Keep in sync with src/tikv/Cargo.toml
