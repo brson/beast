@@ -56,7 +56,7 @@ export GO111MODULE=on
 
 # Source files
 
-DRIVER_FILES=$(shell find src/driver)
+BEASTDB_FILES=$(shell find src/beastdb)
 DRIVER_GO_FILES=$(shell find src/driver_go)
 DRIVER_TIKV_FILES=$(shell find src/driver_tikv)
 TIKV_FILES=$(shell find src/tikv)
@@ -177,14 +177,14 @@ install-go
 
 allbeast: \
 golib \
-driver
+beastdb
 .PHONY: beast
 
 golib: \
 out/libgolib.a
 .PHONY: golib
 
-driver: \
+beastdb: \
 out/beastdb
 .PHONY: driver
 
