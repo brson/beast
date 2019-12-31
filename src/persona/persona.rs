@@ -17,6 +17,12 @@ where F: Fn(&str) -> Result<P, E>,
         None
     };
 
+    let maybe_persona = if let Ok(p) = env::var(format!("{}_PERSONA", env_prefix)) {
+        Some(p)
+    } else {
+        maybe_persona
+    };
+
     let (maybe_persona, args) = if let Some(arg1) = args.get(1) {
         if arg1.starts_with('+') {
             let persona = arg1[1..].to_string();
@@ -29,12 +35,6 @@ where F: Fn(&str) -> Result<P, E>,
         }
     } else {
         (maybe_persona, args)
-    };
-
-    let maybe_persona = if let Ok(p) = env::var(format!("{}_PERSONA", env_prefix)) {
-        Some(p)
-    } else {
-        maybe_persona
     };
 
     let persona = if let Some(persona) = maybe_persona {

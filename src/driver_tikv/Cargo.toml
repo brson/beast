@@ -1,0 +1,12 @@
+[package]
+name = "driver_tikv"
+version = "0.1.0"
+authors = ["Brian Anderson <andersrb@gmail.com>"]
+edition = "2018"
+
+[lib]
+path = "driver_tikv.rs"
+
+[dependencies]
+b_error = "0.1.0"
+tikv = { path = "../tikv" }

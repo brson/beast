@@ -37,8 +37,8 @@ LDFLAGS:=$(LDFLAGS)
 # Toolchain definitions
 # NB: Keep in sync with rust-toolchain and .gvm-version
 
-RUST_TOOLCHAIN=nightly-2019-09-05
-RUST_VERSION=1.39.0-nightly
+RUST_TOOLCHAIN=nightly-2019-06-14
+RUST_VERSION=1.37.0-nightly
 GO_TOOLCHAIN=go1.13
 GO_VERSION=go1.13
 GVM_PKGSET=global
@@ -58,6 +58,7 @@ export GO111MODULE=on
 
 DRIVER_FILES=$(shell find src/driver)
 DRIVER_GO_FILES=$(shell find src/driver_go)
+DRIVER_TIKV_FILES=$(shell find src/driver_tikv)
 TIKV_FILES=$(shell find src/tikv)
 PD_FILES=$(shell find src/tikv)
 TIDB_FILES=$(shell find src/tidb)
@@ -205,6 +206,7 @@ $(TIDB_FILES)
 out/beastdb: \
 $(DRIVER_FILES) \
 $(DRIVER_GO_FILES) \
+$(DRIVER_TIKV_FILES) \
 $(TIKV_FILES) \
 out/libgolib.a
 #out/tidb.a

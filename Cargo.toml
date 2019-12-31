@@ -2,6 +2,7 @@
 members = [
   "src/driver",
   "src/driver_go",
+  "src/driver_tikv",
   "src/persona",
 ]
 default-members = ["src/driver"]
@@ -9,8 +10,5 @@ exclude = ["src/tikv"]
 
 # Keep in sync with src/tikv/Cargo.toml
 [replace]
-"raft:0.6.0-alpha" = { git = "https://github.com/pingcap/raft-rs", branch = "master", default-features = false }
-"raft-proto:0.6.0-alpha" = { git = "https://github.com/pingcap/raft-rs", branch = "master", default-features = false }
-"protobuf:2.8.0" = { git = "https://github.com/nrc/rust-protobuf", branch = "v2.8" }
-"protobuf-codegen:2.8.0" = { git = "https://github.com/nrc/rust-protobuf", branch = "v2.8" }
-"prost:0.5.0" = { git = "https://github.com/danburkert/prost", rev = "1944c27c3029d01ff216e7b126d846b6cf8c7d77" }
+"log:0.3.9" = { git = "https://github.com/busyjay/log", branch = "use-static-module" }
+"log:0.4.6" = { git = "https://github.com/busyjay/log", branch = "revert-to-static" }
