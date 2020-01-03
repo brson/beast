@@ -9,4 +9,6 @@ path = "driver_tikv.rs"
 
 [dependencies]
 b_error = "0.1.0"
+clap = "2.32"
 tikv = { path = "../tikv" }
+toml = "0.4"

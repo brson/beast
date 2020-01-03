@@ -658,7 +658,9 @@ name = "driver_tikv"
 version = "0.1.0"
 dependencies = [
  "b_error 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "clap 2.33.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "tikv 3.0.7",
+ "toml 0.4.10 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
