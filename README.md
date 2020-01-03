@@ -86,13 +86,13 @@ TODO
 ## Future work
 
 - Release builds
+- Include Prometheus
 - Include Grafana
 - Include TiSpark
 - Include TiFlash
 - Include mysql client
 - Include tikv-ctl
 - Include tipb-ctl
-- Include prometheus
 - MySQL server frontend emulation
 - Autogeneration of frontend symlinks
 - In-process embedding ala SQLite
