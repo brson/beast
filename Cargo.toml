@@ -3,7 +3,7 @@ members = [
   "src/beastdb",
   "src/driver_beastdb",
   "src/driver_go",
-  "src/driver_tikv",
+  "src/driver_tikv_server",
   "src/persona",
 ]
 default-members = ["src/beastdb"]

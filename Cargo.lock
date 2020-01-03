@@ -112,7 +112,7 @@ dependencies = [
  "b_error 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "driver_beastdb 0.1.0",
  "driver_go 0.1.0",
- "driver_tikv 0.1.0",
+ "driver_tikv_server 0.1.0",
  "persona 0.1.0",
 ]
 
@@ -654,7 +654,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "driver_tikv"
+name = "driver_tikv_server"
 version = "0.1.0"
 dependencies = [
  "b_error 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",

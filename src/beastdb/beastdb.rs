@@ -40,6 +40,6 @@ fn exec_persona(persona: Persona, args: Vec<String>) -> BResult<i32> {
         Persona::BeastDb => driver_beastdb::beastdb_server_run(&args),
         Persona::TiDbServer => driver_go::tidb_server_run(&args),
         Persona::PdServer => driver_go::pd_server_run(&args),
-        Persona::TiKvServer => driver_tikv::tikv_server_run(&args),
+        Persona::TiKvServer => driver_tikv_server::tikv_server_run(&args),
     }
 }

@@ -12,5 +12,5 @@ path = "beastdb.rs"
 b_error = "0.1.0"
 driver_beastdb = { path = "../driver_beastdb" }
 driver_go = { path = "../driver_go" }
-driver_tikv = { path = "../driver_tikv" }
+driver_tikv_server = { path = "../driver_tikv_server" }
 persona = { path = "../persona" }
