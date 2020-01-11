@@ -61,7 +61,7 @@ DRIVER_GO_FILES=$(shell find src/driver_go)
 DRIVER_TIKV_SERVER_FILES=$(shell find src/driver_tikv_server)
 DRIVER_BEASTDB_FILES=$(shell find src/driver_beastdb)
 TIKV_FILES=$(shell find src/tikv)
-PD_FILES=$(shell find src/tikv)
+PD_FILES=$(shell find src/pd)
 TIDB_FILES=$(shell find src/tidb)
 GOLIB_FILES=$(shell find src/golib)
 
@@ -217,6 +217,11 @@ out/libgolib.a
 > cp target/debug/beastdb out/
 
 
+
+# Misc
+
+echovars:
+> echo $(PD_FILES)
 
 
 # TODO
