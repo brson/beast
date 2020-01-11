@@ -1,2 +1,3 @@
 - handle ffi boundary panics
 - fix go naming conventions
+- make everything work with `ulimit -n 1024`
