@@ -118,7 +118,7 @@ var (
 	proxyProtocolHeaderTimeout = flag.Uint(nmProxyProtocolHeaderTimeout, 5, "proxy protocol header read timeout, unit is second.")
 )
 
-func parseFlags(args []string) {
+func parseFlags(args []string) *flag.FlagSet {
 	flags := flag.NewFlagSet(args[0], flag.ExitOnError)
 
 	version      = flagBoolean2(flags, nmVersion, false, "print version information and exit")
@@ -158,6 +158,8 @@ func parseFlags(args []string) {
 	proxyProtocolHeaderTimeout = flags.Uint(nmProxyProtocolHeaderTimeout, 5, "proxy protocol header read timeout, unit is second.")
 
 	flags.Parse(args[1:])
+
+	return flags;
 }
 
 var (
@@ -169,7 +171,7 @@ var (
 )
 
 func ServerRun(args []string) {
-	parseFlags(args)
+	flags := parseFlags(args)
 	if *version {
 		fmt.Println(printer.GetTiDBInfo())
 		os.Exit(0)
@@ -177,7 +179,7 @@ func ServerRun(args []string) {
 	registerStores()
 	registerMetrics()
 	configWarning := loadConfig()
-	overrideConfig()
+	overrideConfig(flags)
 	if err := cfg.Valid(); err != nil {
 		fmt.Fprintln(os.Stderr, "invalid config", err)
 		os.Exit(1)
@@ -426,9 +428,9 @@ func reloadConfig(nc, c *config.Config) {
 	}
 }
 
-func overrideConfig() {
+func overrideConfig(flags *flag.FlagSet) {
 	actualFlags := make(map[string]bool)
-	flag.Visit(func(f *flag.Flag) {
+	flags.Visit(func(f *flag.Flag) {
 		actualFlags[f.Name] = true
 	})
 
