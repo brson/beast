@@ -118,7 +118,7 @@ verify-rustup:
 .PHONY: verify-rustup
 
 verify-gvm:
-> @gvm version | grep "GVM2" > /dev/null
+> @gvm version | grep "Go Version Manager" > /dev/null
 .PHONY: verify-gvm
 
 install-toolchains: \
