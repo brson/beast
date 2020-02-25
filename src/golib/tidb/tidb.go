@@ -157,7 +157,7 @@ func parseFlags(args []string) {
 	proxyProtocolNetworks      = flags.String(nmProxyProtocolNetworks, "", "proxy protocol networks allowed IP or *, empty mean disable proxy protocol support")
 	proxyProtocolHeaderTimeout = flags.Uint(nmProxyProtocolHeaderTimeout, 5, "proxy protocol header read timeout, unit is second.")
 
-	flags.Parse(args)
+	flags.Parse(args[1:])
 }
 
 var (
